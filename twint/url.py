@@ -16,8 +16,9 @@ def _sanitizeQuery(_url, params):
 
 
 def _formatDate(date):
-    if "win" in platform:
-        return f'\"{date.split()[0]}\"'
+# todo: not worked in Mac darWIN os 
+#     if "windows" in platform:
+#         return f'\"{date.split()[0]}\"'
     try:
         return int(datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S").timestamp())
     except ValueError:
