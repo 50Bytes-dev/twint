@@ -157,18 +157,19 @@ def ForceNewTorIdentity(config):
 
 async def Request(_url, connector=None, params=None, headers=None):
     logme.debug(__name__ + ':Request:Connector')
-    async with aiohttp.ClientSession(connector=connector, headers=headers) as session:
+    session_timeout = aiohttp.ClientTimeout(total=60)
+    async with aiohttp.ClientSession(connector=connector, headers=headers, timeout=session_timeout) as session:
         return await Response(session, _url, params)
 
 
 async def Response(session, _url, params=None):
     logme.debug(__name__ + ':Response')
-    with timeout(120):
-        async with session.get(_url, ssl=True, params=params, proxy=httpproxy) as response:
-            resp = await response.text()
-            if response.status == 429:  # 429 implies Too many requests i.e. Rate Limit Exceeded
-                raise TokenExpiryException(loads(resp)['errors'][0]['message'])
-            return resp
+    # with timeout(120):
+    async with session.get(_url, ssl=True, params=params, proxy=httpproxy) as response:
+        resp = await response.text()
+        if response.status == 429:  # 429 implies Too many requests i.e. Rate Limit Exceeded
+            raise TokenExpiryException(loads(resp)['errors'][0]['message'])
+        return resp
 
 
 async def RandomUserAgent(wa=None):
