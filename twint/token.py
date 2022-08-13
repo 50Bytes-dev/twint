@@ -76,7 +76,7 @@ class Token:
                 'content-length': '0',
                 'authorization': self.config.Bearer_token,
                 'x-twitter-client-language': 'en',
-                # 'x-csrf-token': res.cookies.get("ct0"),
+                'x-csrf-token': res.cookies.get("ct0"),
                 'x-twitter-active-user': 'yes',
                 'content-type': 'application/x-www-form-urlencoded',
                 'accept': '*/*',
