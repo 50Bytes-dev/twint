@@ -17,7 +17,7 @@ class RefreshTokenException(Exception):
 
 class Token:
     def __init__(self, config):
-        self._session = requests.Session()
+        self._session: requests.Session = requests.Session()
         self._session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0'})
         self.config = config
         self._retries = 5
@@ -51,6 +51,8 @@ class Token:
                 if success:
                     logme.debug(f'{req.url} retrieved successfully{msg}')
                     return r
+            finally:
+                self._session.close()
             if attempt < self._retries:
                 # TODO : might wanna tweak this back-off timer
                 sleep_time = 2.0 * 2 ** attempt
@@ -91,6 +93,7 @@ class Token:
             self._session.headers.update(headers)
             req = self._session.prepare_request(requests.Request('POST', 'https://api.twitter.com/1.1/guest/activate.json'))
             res = self._session.send(req, allow_redirects=True, timeout=self._timeout)
+            self._session.close()
             match = re.search(r'{"guest_token":"(\d+)"}', res.text)
             if match:
                 logme.debug('Found guest token in JSON')

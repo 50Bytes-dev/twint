@@ -13,9 +13,9 @@ from .config import Config
 from .__version__ import __version__
 from . import run
 
-# import nest_asyncio
-#
-# nest_asyncio.apply()
+import nest_asyncio
+
+nest_asyncio.apply()
 
 _levels = {
     'info': logging.INFO,
