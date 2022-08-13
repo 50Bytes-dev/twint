@@ -192,7 +192,12 @@ async def Username(_id, bearer_token, guest_token):
     }
     r = await Request(_url, headers=_headers)
     j_r = loads(r)
-    username = j_r['data']['user']['legacy']['screen_name']
+    try:
+        username = j_r['data']['user']['legacy']['screen_name']
+    except KeyError:
+        print(f"Don't find username for {_id}")
+        print(f"Error response {j_r}")
+        username = None
     return username
 
 
