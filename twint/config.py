@@ -82,6 +82,6 @@ class Config:
     TranslateDest: str = "en"
     Backoff_exponent: float = 3.0
     Min_wait_time: int = 0
-    Bearer_token: str = None
-    Guest_token: str = None
+    Bearer_token: str = ''
+    Guest_token: str = ''
     deleted: list = None
