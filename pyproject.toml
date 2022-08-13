@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "twint"
-version = "2.1.24"
+version = "2.1.27"
 description = ""
 authors = ["50bytes.dev <50bytes.dev@gmail.com>"]
 
