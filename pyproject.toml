@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "twint"
-version = "2.1.28"
+version = "2.1.29"
 description = ""
 authors = ["50bytes.dev <50bytes.dev@gmail.com>"]
 
@@ -13,7 +13,7 @@ cchardet = "*"
 elasticsearch = "*"
 PySocks = "*"
 pandas = "*"
-aiohttp-socks = "<=0.4.1"
+aiohttp-socks = "*"
 schedule = "*"
 geopy = "*"
 fake-useragent = "*"
